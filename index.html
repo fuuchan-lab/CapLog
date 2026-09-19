@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>CleanLog</title>
+    <title>CapLog</title>
     <meta
       name="description"
-      content="ごみ拾い記録をマップと写真で残す、スマホ向けのモバイルファーストアプリ"
+      content="日常の発見をマップと写真で分類して残す"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,14 +21,14 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png" />
     <link rel="apple-touch-icon" href="icons/icon-180.png" />
-    <meta name="theme-color" content="#17110e" />
+    <meta name="theme-color" content="#0a1220" />
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">ゴミ拾い記録帳</p>
-          <h1>CleanLog</h1>
+          <p class="eyebrow">発見撮影記録帳</p>
+          <h1>CapLog</h1>
         </div>
         <div class="topbar-actions">
           <button id="settingsButton" class="icon-button" type="button" aria-label="設定を開く" title="設定">⚙</button>
@@ -52,12 +52,12 @@
         </div>
         <div class="summary-item">
           <span id="densityValue" class="value">0.0</span>
-          <span class="label">ごみ密度 (個/km²)</span>
+          <span class="label">投稿密度 (件/km²)</span>
         </div>
       </section>
 
       <section class="map-panel">
-        <div id="map" aria-label="ごみ分布マップ"></div>
+        <div id="map" aria-label="発見マップ"></div>
         <button id="addRecordButton" class="fab" type="button" aria-label="新しい記録を追加" title="新しい記録を追加">
           <span id="addRecordLabel" class="fab-label" aria-hidden="true">撮影</span>
           <span class="fab-icon" aria-hidden="true">📷</span>
@@ -140,13 +140,13 @@
             <span>種類</span>
             <select id="recordCategory">
               <option value="">種類を選択</option>
-              <option value="tobacco">タバコ</option>
-              <option value="can">缶・瓶</option>
-              <option value="foodWaste">生ごみ</option>
-              <option value="toy">おもちゃ</option>
-              <option value="fireworks">花火</option>
-              <option value="crumbs">食べかす</option>
-              <option value="candy">飴・ガム</option>
+              <option value="plant">植物・花</option>
+              <option value="animal">動物・鳥・虫</option>
+              <option value="building">建物・看板</option>
+              <option value="food">食べ物</option>
+              <option value="vehicle">乗り物</option>
+              <option value="scenery">空・風景</option>
+              <option value="item">道具・小物</option>
             </select>
           </label>
 
@@ -161,7 +161,7 @@
 
           <div class="field">
             <span>保存先</span>
-            <div class="drive-pill">Google Drive の CleanLog フォルダー</div>
+            <div class="drive-pill">Google Drive の CapLog フォルダー</div>
           </div>
 
           <button id="saveRecordButton" type="submit" class="primary-button">Drive に保存</button>
@@ -214,7 +214,7 @@
       <div class="record-modal-card settings-card">
         <div class="record-modal-header">
           <div>
-            <p class="eyebrow">CleanLog</p>
+            <p class="eyebrow">CapLog</p>
             <h3 id="settingsTitle">設定</h3>
           </div>
           <button id="closeSettingsModal" type="button" class="close-detail" aria-label="設定を閉じる">×</button>
@@ -245,7 +245,7 @@
           </label>
           <label class="color-field">
             <span>色</span>
-            <input id="categoryColorInput" type="color" value="#a86b43" />
+            <input id="categoryColorInput" type="color" value="#4a8fe0" />
           </label>
           <button type="submit" class="primary-button">種類を追加</button>
         </form>

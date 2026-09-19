@@ -1,11 +1,11 @@
 :root {
-  --surface: #241914;
-  --text: #fff8f1;
-  --muted: #c2aa98;
-  --line: rgba(255, 235, 218, 0.14);
-  --green: #a86b43;
-  --green-strong: #74452e;
-  --green-soft: rgba(133, 78, 43, 0.3);
+  --surface: #14213a;
+  --text: #f2f7ff;
+  --muted: #9fb3d1;
+  --line: rgba(200, 220, 255, 0.14);
+  --green: #4a8fe0;
+  --green-strong: #2f62b3;
+  --green-soft: rgba(74, 143, 224, 0.3);
   --shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
   --danger: #e56d53;
   --amber: #e1a43a;
@@ -17,14 +17,14 @@
 }
 
 html {
-  background: linear-gradient(180deg, #17110e 0%, #261812 100%);
+  background: linear-gradient(180deg, #0a1220 0%, #10203a 100%);
   overflow-x: hidden;
 }
 
 body {
   margin: 0;
   font-family: "Noto Sans JP", sans-serif;
-  background: #17110e;
+  background: #0a1220;
   color: var(--text);
   overflow-x: hidden;
 }
@@ -38,7 +38,7 @@ button {
   min-height: 100vh;
   margin: 0 auto;
   padding: max(16px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
-  background: linear-gradient(180deg, #211611 0%, #17110e 100%);
+  background: linear-gradient(180deg, #0e1a2e 0%, #0a1220 100%);
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -86,7 +86,7 @@ button {
 .icon-button:hover,
 .icon-button:focus-visible {
   background: transparent;
-  color: #e0a477;
+  color: #8ec1ff;
 }
 
 .eyebrow {
@@ -152,7 +152,7 @@ h1 {
 }
 
 .summary-item {
-  background: rgba(48, 32, 25, 0.96);
+  background: rgba(26, 42, 71, 0.96);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 12px 10px;
@@ -164,14 +164,14 @@ h1 {
 
 .summary-button {
   border: 1px solid var(--line);
-  background: rgba(48, 32, 25, 0.96);
+  background: rgba(26, 42, 71, 0.96);
   color: #ffffff;
   cursor: pointer;
 }
 
 .summary-item.accent {
-  background: rgba(113, 67, 40, 0.48);
-  border-color: rgba(190, 125, 79, 0.36);
+  background: rgba(47, 98, 179, 0.48);
+  border-color: rgba(96, 160, 240, 0.36);
 }
 
 .value {
@@ -196,7 +196,7 @@ h1 {
 #map {
   height: 360px;
   width: 100%;
-  background: #3a281f;
+  background: #203457;
 }
 
 .leaflet-control-attribution {
@@ -209,10 +209,10 @@ h1 {
   top: 18px;
   width: 46px;
   height: 46px;
-  border: 1px solid rgba(255, 235, 218, 0.2);
+  border: 1px solid rgba(200, 220, 255, 0.2);
   border-radius: 50%;
-  background: rgba(36, 25, 20, 0.94);
-  color: #fff8f1;
+  background: rgba(20, 33, 58, 0.94);
+  color: #f2f7ff;
   line-height: 1;
   display: flex;
   flex-direction: column;
@@ -240,7 +240,7 @@ h1 {
 
 .fab:hover,
 .fab:focus-visible {
-  background: #74452e;
+  background: #2f62b3;
 }
 
 .locate-button {
@@ -249,10 +249,10 @@ h1 {
   bottom: 14px;
   width: 42px;
   height: 42px;
-  border: 1px solid rgba(255, 235, 218, 0.2);
+  border: 1px solid rgba(200, 220, 255, 0.2);
   border-radius: 50%;
-  background: rgba(36, 25, 20, 0.94);
-  color: #fff8f1;
+  background: rgba(20, 33, 58, 0.94);
+  color: #f2f7ff;
   font-size: 1.6rem;
   line-height: 1;
   display: flex;
@@ -265,7 +265,7 @@ h1 {
 
 .locate-button:hover,
 .locate-button:focus-visible {
-  background: #74452e;
+  background: #2f62b3;
 }
 
 .album-button {
@@ -274,10 +274,10 @@ h1 {
   top: 14px;
   width: 42px;
   height: 42px;
-  border: 1px solid rgba(255, 235, 218, 0.2);
+  border: 1px solid rgba(200, 220, 255, 0.2);
   border-radius: 50%;
-  background: rgba(36, 25, 20, 0.94);
-  color: #fff8f1;
+  background: rgba(20, 33, 58, 0.94);
+  color: #f2f7ff;
   font-size: 1.45rem;
   line-height: 1;
   display: flex;
@@ -290,7 +290,7 @@ h1 {
 
 .album-button:hover,
 .album-button:focus-visible {
-  background: #74452e;
+  background: #2f62b3;
 }
 
 .hidden-file-input {
@@ -298,7 +298,7 @@ h1 {
 }
 
 .list-panel {
-  background: rgba(36, 25, 20, 0.96);
+  background: rgba(20, 33, 58, 0.96);
   border: 1px solid var(--line);
   border-radius: var(--panel-radius);
   padding: 14px 14px 10px;
@@ -324,7 +324,7 @@ h1 {
 .text-button {
   border: none;
   background: transparent;
-  color: #e0a477;
+  color: #8ec1ff;
   font-weight: 700;
   padding: 0;
 }
@@ -358,7 +358,7 @@ h1 {
   height: 84px;
   border-radius: 12px;
   object-fit: cover;
-  background: linear-gradient(135deg, #4a3023, #241712);
+  background: linear-gradient(135deg, #2a4270, #12203a);
 }
 
 .photo-preview {
@@ -442,7 +442,7 @@ h1 {
   height: 22px;
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 10px 16px rgba(15, 24, 18, 0.18);
+  box-shadow: 0 10px 16px rgba(10, 18, 32, 0.18);
   color: white;
   font-size: 0.7rem;
   font-weight: 700;
@@ -450,7 +450,7 @@ h1 {
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: rgba(43, 29, 23, 0.98);
+  background: rgba(23, 38, 66, 0.98);
   color: var(--text);
   box-shadow: 0 18px 28px rgba(0, 0, 0, 0.36);
 }
@@ -499,7 +499,7 @@ h1 {
   bottom: 0;
   transform: translateX(-50%);
   width: min(100%, 460px);
-  background: rgba(36, 25, 20, 0.99);
+  background: rgba(20, 33, 58, 0.99);
   border-radius: 24px 24px 0 0;
   box-shadow: 0 -22px 40px rgba(0, 0, 0, 0.42);
   border: 1px solid var(--line);
@@ -524,7 +524,7 @@ h1 {
 
 .record-modal-card {
   width: min(100%, 460px);
-  background: #241914;
+  background: #14213a;
   border-radius: 24px 24px 0 0;
   padding: 16px 16px 30px;
   box-shadow: 0 -18px 36px rgba(0, 0, 0, 0.42);
@@ -556,7 +556,7 @@ h1 {
   width: auto;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #17110e;
+  background: #0a1220;
   color: var(--text);
   padding: 7px 10px;
   color-scheme: dark;
@@ -610,7 +610,7 @@ h1 {
   padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: #17110e;
+  background: #0a1220;
 }
 
 .install-guide-item strong {
@@ -644,7 +644,7 @@ h1 {
   padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: #17110e;
+  background: #0a1220;
 }
 
 .settings-category-item .color-dot {
@@ -661,7 +661,7 @@ h1 {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #241914;
+  background: #14213a;
   color: var(--text);
   padding: 8px 10px;
   font: inherit;
@@ -673,7 +673,7 @@ h1 {
   padding: 3px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #17110e;
+  background: #0a1220;
 }
 
 .category-edit-actions {
@@ -686,7 +686,7 @@ h1 {
 .category-edit-actions button {
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #302019;
+  background: #1a2a47;
   color: var(--text);
   padding: 6px 10px;
   font-size: 0.72rem;
@@ -735,7 +735,7 @@ h1 {
   padding: 4px;
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: #17110e;
+  background: #0a1220;
 }
 
 .record-modal-header {
@@ -782,7 +782,7 @@ h1 {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: #17110e;
+  background: #0a1220;
   color: var(--text);
   color-scheme: dark;
   accent-color: var(--green);
@@ -796,9 +796,9 @@ h1 {
 .date-calendar {
   margin-top: 6px;
   padding: 12px;
-  border: 1px solid rgba(190, 125, 79, 0.34);
+  border: 1px solid rgba(96, 160, 240, 0.34);
   border-radius: 14px;
-  background: #17110e;
+  background: #0a1220;
   color: var(--text);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24);
 }
@@ -839,13 +839,13 @@ h1 {
 .calendar-nav {
   width: 30px;
   height: 30px;
-  color: #e0a477;
+  color: #8ec1ff;
   font-size: 1.1rem;
 }
 
 .calendar-nav:hover,
 .calendar-day:hover {
-  background: rgba(168, 107, 67, 0.26);
+  background: rgba(74, 143, 224, 0.26);
 }
 
 .calendar-weekdays {
@@ -861,7 +861,7 @@ h1 {
 }
 
 .calendar-day.selected {
-  background: #a86b43;
+  background: #4a8fe0;
   color: #fff;
   font-weight: 800;
 }
@@ -896,7 +896,7 @@ h1 {
   height: 32px;
   border: none;
   border-radius: 50%;
-  background: rgba(220, 238, 224, 0.1);
+  background: rgba(210, 225, 250, 0.1);
   font-size: 1.4rem;
   line-height: 1;
   color: var(--text);
@@ -969,7 +969,7 @@ h1 {
 }
 
 .secondary-button {
-  background: #302019;
+  background: #1a2a47;
 }
 
 .danger-button {

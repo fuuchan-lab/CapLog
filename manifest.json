@@ -1,12 +1,12 @@
 {
-  "name": "CleanLog",
-  "short_name": "CleanLog",
-  "description": "ごみ拾い記録をマップと写真で残す、スマホ向けのモバイルファーストアプリ",
+  "name": "CapLog",
+  "short_name": "CapLog",
+  "description": "日常の発見をマップと写真で分類して残す",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
-  "background_color": "#17110e",
-  "theme_color": "#17110e",
+  "background_color": "#0a1220",
+  "theme_color": "#0a1220",
   "icons": [
     {
       "src": "icons/icon-192.png",

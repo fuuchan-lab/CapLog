@@ -1,18 +1,18 @@
 const categories = [
-  { key: 'tobacco', label: 'タバコ', labelEn: 'Cigarettes', color: '#3b82f6' },
-  { key: 'can', label: '缶・瓶', labelEn: 'Cans & Bottles', color: '#14a9a7' },
-  { key: 'foodWaste', label: '生ごみ', labelEn: 'Food Waste', color: '#7ea843' },
-  { key: 'toy', label: 'おもちゃ', labelEn: 'Toys', color: '#c86079' },
-  { key: 'fireworks', label: '花火', labelEn: 'Fireworks', color: '#ef9b73' },
-  { key: 'crumbs', label: '食べかす', labelEn: 'Food Scraps', color: '#e1a43a' },
-  { key: 'candy', label: '飴・ガム', labelEn: 'Candy & Gum', color: '#7c6ae1' },
+  { key: 'plant', label: '植物・花', labelEn: 'Plants & Flowers', color: '#7ea843' },
+  { key: 'animal', label: '動物・鳥・虫', labelEn: 'Animals, Birds & Insects', color: '#e1a43a' },
+  { key: 'building', label: '建物・看板', labelEn: 'Buildings & Signs', color: '#3b82f6' },
+  { key: 'food', label: '食べ物', labelEn: 'Food', color: '#ef9b73' },
+  { key: 'vehicle', label: '乗り物', labelEn: 'Vehicles', color: '#14a9a7' },
+  { key: 'scenery', label: '空・風景', labelEn: 'Sky & Scenery', color: '#7c6ae1' },
+  { key: 'item', label: '道具・小物', labelEn: 'Objects & Gadgets', color: '#c86079' },
 ];
 
 const records = [
   {
     id: 1,
-    category: 'tobacco',
-    title: 'タバコの吸い殻',
+    category: 'plant',
+    title: '道ばたの花',
     time: '9:14',
     date: '2026/09/12',
     place: '公園入口',
@@ -22,8 +22,8 @@ const records = [
   },
   {
     id: 2,
-    category: 'can',
-    title: '空き缶',
+    category: 'animal',
+    title: '日なたの猫',
     time: '10:42',
     date: '2026/09/11',
     place: '歩道脇',
@@ -33,22 +33,22 @@ const records = [
   },
   {
     id: 3,
-    category: 'foodWaste',
-    title: '生ごみ',
+    category: 'food',
+    title: 'カフェのランチ',
     time: '11:05',
     date: '2026/09/10',
-    place: 'ベンチ横',
+    place: 'カフェ前',
     lat: 35.6799,
     lng: 139.7683,
     image: '',
   },
   {
     id: 4,
-    category: 'candy',
-    title: '飴の袋',
+    category: 'scenery',
+    title: '夕焼けの空',
     time: '12:30',
     date: '2026/09/09',
-    place: '階段の下',
+    place: '高台の階段',
     lat: 35.6806,
     lng: 139.7742,
     image: '',
@@ -60,7 +60,7 @@ categoryMap.unclassified = {
   key: 'unclassified',
   label: '分類未設定',
   labelEn: 'Unclassified',
-  color: '#a86b43',
+  color: '#7a8ca8',
 };
 
 const recordList = document.getElementById('recordList');
@@ -129,7 +129,7 @@ const startCalendar = document.getElementById('startCalendar');
 const endCalendar = document.getElementById('endCalendar');
 
 const driveConfig = {
-  folderName: 'CleanLog',
+  folderName: 'CapLog',
   // Google Cloud Console > APIとサービス > 認証情報 で発行した
   // OAuth クライアントID（ウェブアプリケーション）に置き換えてください。
   clientId: '632134832719-kj2419t3d9ltfko0i70o11g9ssuj2j69.apps.googleusercontent.com',
@@ -144,7 +144,7 @@ let driveUserAvatarUrl = null;
 let driveUserEmail = null;
 const driveImageUrlCache = new Map();
 let activeCategoryKeys = [...categories.map((category) => category.key), 'unclassified'];
-let currentLanguage = localStorage.getItem('cleanlog-language') || (navigator.language.toLowerCase().startsWith('ja') ? 'ja' : 'en');
+let currentLanguage = localStorage.getItem('caplog-language') || (navigator.language.toLowerCase().startsWith('ja') ? 'ja' : 'en');
 let selectedPhotoFile = null;
 let selectedPhotoLocation = null;
 let selectedPhotoSource = 'camera';
@@ -158,13 +158,13 @@ const dateRange = {
 
 const translations = {
   ja: {
-    appTagline: 'ゴミ拾い記録帳', settings: '設定', login: 'ログイン', connected: 'Google接続中',
-    recordPeriod: '記録期間', periodCount: '期間/地図中の数', density: 'ごみ密度 (個/km²)',
-    map: 'ごみ分布マップ', addRecord: '新しい記録を追加', capture: '撮影', categories: 'ごみの種類',
+    appTagline: '発見撮影記録帳', settings: '設定', login: 'ログイン', connected: 'Google接続中',
+    recordPeriod: '記録期間', periodCount: '期間/地図中の数', density: '投稿密度 (件/km²)',
+    map: '発見マップ', addRecord: '新しい記録を追加', capture: '撮影', categories: 'ごみの種類',
     recent: '最近の記録', periodFilter: '期間指定', details: '記録詳細', close: '閉じる',
     newRecord: '新しいごみ記録', selectType: '種類を選択', type: '種類', capturedAt: '撮影日時', photo: '写真',
     locationHint: '正確な位置情報が必要な場合は、端末のカメラアプリで撮影してから、地図上の🖼️ボタン(アルバムから選択)でその写真を選んでください。',
-    saveTo: '保存先', driveFolder: 'Google Drive の CleanLog フォルダー', saveDrive: 'Drive に保存',
+    saveTo: '保存先', driveFolder: 'Google Drive の CapLog フォルダー', saveDrive: 'Drive に保存',
     selectPeriod: '期間を選択', startDate: '開始日', endDate: '終了日', showPeriod: 'この期間で表示',
     language: '言語/Language', newType: '新しい種類', color: '色', addType: '種類を追加', exampleType: '例：段ボール',
     installTitle: 'デバイスへのインストール方法', installDescription: '下のQRコードをスマートフォンで読み取ってアクセスしてください。',
@@ -172,8 +172,8 @@ const translations = {
     ios: 'iPhone / iPad', iosGuide: 'Safariでアクセスし、共有ボタンから「ホーム画面に追加」を選択してください。', qrAlt: 'アクセス先のQRコード',
     previousMonth: '前の月', nextMonth: '次の月', update: '更新', delete: '削除', edit: '編集', cancel: 'キャンセル', useCurrentLocation: '現在位置を記録',
     detailButton: '記録詳細を見る',
-    loginAlert: 'Googleアカウントでログインしました。写真とデータは Google Drive の CleanLog フォルダーに保存されます。',
-    savedAlert: '写真とデータを Google Drive の CleanLog フォルダーに保存しました。',
+    loginAlert: 'Googleアカウントでログインしました。写真とデータは Google Drive の CapLog フォルダーに保存されます。',
+    savedAlert: '写真とデータを Google Drive の CapLog フォルダーに保存しました。',
     account: 'アカウント', switchAccount: 'アカウントを切り替え', signOut: 'ログアウト',
     connecting: '接続中…',
     clientIdMissingAlert: 'Google Drive連携用のクライアントIDが未設定です。app.js の driveConfig.clientId を設定してください。',
@@ -187,23 +187,23 @@ const translations = {
     weekdays: ['日', '月', '火', '水', '木', '金', '土'],
   },
   en: {
-    appTagline: 'Clean-up Logbook', settings: 'Settings', login: 'Log in', connected: 'Google connected',
-    recordPeriod: 'Record period', periodCount: 'Records in period & map view', density: 'Waste density (items/km²)',
-    map: 'Waste distribution map', addRecord: 'Add new record', capture: 'Capture', categories: 'Waste types', all: 'Show all',
+    appTagline: 'Discovery Photo Logbook', settings: 'Settings', login: 'Log in', connected: 'Google connected',
+    recordPeriod: 'Record period', periodCount: 'Records in period & map view', density: 'Post density (posts/km²)',
+    map: 'Discovery map', addRecord: 'Add new record', capture: 'Capture', categories: 'Waste types', all: 'Show all',
     recent: 'Recent records', periodFilter: 'Filter by period', details: 'Record details', close: 'Close',
     recordTitle: 'Record title', place: 'Place', notes: 'The waste condition and type are recorded from the photo and location.',
     newRecord: 'New waste record', selectType: 'Select type', type: 'Type', capturedAt: 'Captured at', photo: 'Photo',
     locationHint: 'For an accurate location, take the photo with your device’s camera app first, then use the 🖼️ button on the map (choose from album) to pick that photo.',
-    saveTo: 'Save to', driveFolder: 'Google Drive CleanLog folder', saveDrive: 'Save to Drive',
+    saveTo: 'Save to', driveFolder: 'Google Drive CapLog folder', saveDrive: 'Save to Drive',
     selectPeriod: 'Select period', startDate: 'Start date', endDate: 'End date', showPeriod: 'Show this period',
     language: '言語/Language', newType: 'New type', color: 'Color', addType: 'Add type', exampleType: 'e.g. Cardboard',
-    installTitle: 'How to install on your device', installDescription: 'Scan the QR code below with your smartphone to open CleanLog.',
+    installTitle: 'How to install on your device', installDescription: 'Scan the QR code below with your smartphone to open CapLog.',
     android: 'Android', androidGuide: 'Open this page in Chrome, then choose “Add to Home screen” or “Install app” from the menu.',
     ios: 'iPhone / iPad', iosGuide: 'Open this page in Safari, tap the Share button, then choose “Add to Home Screen”.', qrAlt: 'QR code for this app',
     previousMonth: 'Previous month', nextMonth: 'Next month', update: 'Update', delete: 'Delete', edit: 'Edit', cancel: 'Cancel', useCurrentLocation: 'Record current location',
     detailButton: 'View record details',
-    loginAlert: 'You are now signed in with Google. Photos and data will be saved to the CleanLog folder.',
-    savedAlert: 'The photo and data were saved to the CleanLog folder in Google Drive.',
+    loginAlert: 'You are now signed in with Google. Photos and data will be saved to the CapLog folder.',
+    savedAlert: 'The photo and data were saved to the CapLog folder in Google Drive.',
     account: 'Account', switchAccount: 'Switch account', signOut: 'Sign out',
     connecting: 'Connecting…',
     clientIdMissingAlert: 'The Google Drive client ID is not configured. Please set driveConfig.clientId in app.js.',
@@ -229,7 +229,7 @@ function getCategoryLabel(category) {
 function buildPlaceholderImage(color, label) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240">`
     + `<rect width="240" height="240" fill="${color}"/>`
-    + `<text x="120" y="146" font-family="sans-serif" font-size="104" fill="#fff8f1" text-anchor="middle">${label}</text>`
+    + `<text x="120" y="146" font-family="sans-serif" font-size="104" fill="#f2f7ff" text-anchor="middle">${label}</text>`
     + `</svg>`;
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
@@ -264,7 +264,7 @@ function updateInstallGuide() {
 function applyTranslations() {
   document.documentElement.lang = currentLanguage;
   document.querySelector('.topbar .eyebrow').textContent = t('appTagline');
-  document.querySelector('.settings-card .eyebrow').textContent = 'CleanLog';
+  document.querySelector('.settings-card .eyebrow').textContent = 'CapLog';
   document.querySelector('.summary-button .label').textContent = t('recordPeriod');
   document.querySelector('.summary-item.accent .label').textContent = t('periodCount');
   document.querySelectorAll('.summary-item .label')[2].textContent = t('density');
@@ -586,13 +586,13 @@ function gpsCoordinateToDecimal(value, reference) {
 function classifyPhoto(file) {
   const fileName = file.name.toLowerCase();
   const matches = [
-    { keys: ['cigarette', 'tobacco', 'タバコ', '吸い殻'], category: 'tobacco' },
-    { keys: ['can', 'bottle', '缶', '瓶'], category: 'can' },
-    { keys: ['food', 'waste', '生ごみ'], category: 'foodWaste' },
-    { keys: ['toy', 'おもちゃ'], category: 'toy' },
-    { keys: ['firework', '花火'], category: 'fireworks' },
-    { keys: ['crumb', 'food-scrap', '食べかす'], category: 'crumbs' },
-    { keys: ['candy', 'gum', '飴', 'ガム'], category: 'candy' },
+    { keys: ['plant', 'flower', '植物', '花'], category: 'plant' },
+    { keys: ['animal', 'bird', 'insect', 'cat', 'dog', '動物', '鳥', '虫', '猫', '犬'], category: 'animal' },
+    { keys: ['building', 'sign', '建物', '看板'], category: 'building' },
+    { keys: ['food', 'meal', '食べ物', '料理'], category: 'food' },
+    { keys: ['vehicle', 'car', 'bike', 'train', '乗り物', '車', '電車'], category: 'vehicle' },
+    { keys: ['sky', 'scenery', 'landscape', '空', '風景'], category: 'scenery' },
+    { keys: ['item', 'tool', 'gadget', '道具', '小物'], category: 'item' },
   ];
   const match = matches.find(({ keys }) => keys.some((key) => fileName.includes(key)));
   return match ? match.category : '';
@@ -796,7 +796,7 @@ function isDriveConfigured() {
   return Boolean(driveConfig.clientId) && driveConfig.clientId.trim() !== 'YOUR_GOOGLE_CLIENT_ID';
 }
 
-const DRIVE_TOKEN_KEY = 'cleanlog-drive-token';
+const DRIVE_TOKEN_KEY = 'caplog-drive-token';
 
 function storeDriveAccessToken(accessToken, expiresInSeconds) {
   const expiresInMs = Number(expiresInSeconds) > 0 ? Number(expiresInSeconds) * 1000 : 55 * 60 * 1000;
@@ -903,7 +903,7 @@ async function ensureDriveFolder() {
 
 async function uploadFileToDrive(blob, name, mimeType, parentId) {
   const metadata = { name, parents: [parentId] };
-  const boundary = `cleanlog-${Date.now()}`;
+  const boundary = `caplog-${Date.now()}`;
   const metadataPart = `--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(metadata)}\r\n`;
   const closeDelimiter = `\r\n--${boundary}--`;
   const contentBuffer = await blob.arrayBuffer();
@@ -991,7 +991,7 @@ async function loadRecordsFromDrive() {
   renderDateRangeSummary();
 }
 
-const DRIVE_SESSION_KEY = 'cleanlog-drive-connected';
+const DRIVE_SESSION_KEY = 'caplog-drive-connected';
 
 async function connectToDrive(promptOverride = null) {
   if (!isDriveConfigured()) {
@@ -1133,7 +1133,7 @@ async function saveRecordToDrive(event) {
   }
 
   try {
-    const photoFileName = `CleanLog-${id}.jpg`;
+    const photoFileName = `CapLog-${id}.jpg`;
     const photoFileId = file
       ? await uploadFileToDrive(file, photoFileName, file.type || 'image/jpeg', driveFolderId)
       : null;
@@ -1151,7 +1151,7 @@ async function saveRecordToDrive(event) {
       photoFileName,
     };
 
-    const dataFileName = `CleanLog-${id}.json`;
+    const dataFileName = `CapLog-${id}.json`;
     const dataFileId = await uploadFileToDrive(
       new Blob([JSON.stringify(payload)], { type: 'application/json' }),
       dataFileName,
@@ -1224,7 +1224,7 @@ googleLoginButton.addEventListener('click', handleGoogleLogin);
 languageSelect.value = currentLanguage;
 languageSelect.addEventListener('change', () => {
   currentLanguage = languageSelect.value;
-  localStorage.setItem('cleanlog-language', currentLanguage);
+  localStorage.setItem('caplog-language', currentLanguage);
   applyTranslations();
 });
 updateLoginState();
@@ -1505,7 +1505,7 @@ function addCategory(event) {
   updateRecordCategoryOptions();
   renderSettingsCategories();
   categoryNameInput.value = '';
-  categoryColorInput.value = '#a86b43';
+  categoryColorInput.value = '#4a8fe0';
 }
 
 function renderRecords() {
@@ -1613,9 +1613,9 @@ function placeCurrentLocationMarker(currentLocation) {
   } else {
     window.currentLocationMarker = L.circleMarker(currentLocation, {
       radius: 8,
-      color: '#fff8f1',
+      color: '#f2f7ff',
       weight: 3,
-      fillColor: '#a86b43',
+      fillColor: '#4a8fe0',
       fillOpacity: 1,
     }).addTo(map);
   }
