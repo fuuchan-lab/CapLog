@@ -132,7 +132,7 @@ const driveConfig = {
   folderName: 'CapLog',
   // Google Cloud Console > APIとサービス > 認証情報 で発行した
   // OAuth クライアントID（ウェブアプリケーション）に置き換えてください。
-  clientId: '632134832719-kj2419t3d9ltfko0i70o11g9ssuj2j69.apps.googleusercontent.com',
+  clientId: '62584118958-jp6hctllnodp26q1o686eemhi37gttnc.apps.googleusercontent.com',
   scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.profile',
 };
 
