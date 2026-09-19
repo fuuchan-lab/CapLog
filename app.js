@@ -160,9 +160,9 @@ const translations = {
   ja: {
     appTagline: '発見撮影記録帳', settings: '設定', login: 'ログイン', connected: 'Google接続中',
     recordPeriod: '記録期間', periodCount: '期間/地図中の数', density: '投稿密度 (件/km²)',
-    map: '発見マップ', addRecord: '新しい記録を追加', capture: '撮影', categories: 'ごみの種類',
+    map: '発見マップ', addRecord: '新しい記録を追加', capture: '撮影', categories: '投稿の種類',
     recent: '最近の記録', periodFilter: '期間指定', details: '記録詳細', close: '閉じる',
-    newRecord: '新しいごみ記録', selectType: '種類を選択', type: '種類', capturedAt: '撮影日時', photo: '写真',
+    newRecord: '新しい投稿', selectType: '種類を選択', type: '種類', capturedAt: '撮影日時', photo: '写真',
     locationHint: '正確な位置情報が必要な場合は、端末のカメラアプリで撮影してから、地図上の🖼️ボタン(アルバムから選択)でその写真を選んでください。',
     saveTo: '保存先', driveFolder: 'Google Drive の CapLog フォルダー', saveDrive: 'Drive に保存',
     selectPeriod: '期間を選択', startDate: '開始日', endDate: '終了日', showPeriod: 'この期間で表示',
@@ -189,10 +189,10 @@ const translations = {
   en: {
     appTagline: 'Discovery Photo Logbook', settings: 'Settings', login: 'Log in', connected: 'Google connected',
     recordPeriod: 'Record period', periodCount: 'Records in period & map view', density: 'Post density (posts/km²)',
-    map: 'Discovery map', addRecord: 'Add new record', capture: 'Capture', categories: 'Waste types', all: 'Show all',
+    map: 'Discovery map', addRecord: 'Add new record', capture: 'Capture', categories: 'Post types', all: 'Show all',
     recent: 'Recent records', periodFilter: 'Filter by period', details: 'Record details', close: 'Close',
-    recordTitle: 'Record title', place: 'Place', notes: 'The waste condition and type are recorded from the photo and location.',
-    newRecord: 'New waste record', selectType: 'Select type', type: 'Type', capturedAt: 'Captured at', photo: 'Photo',
+    recordTitle: 'Record title', place: 'Place', notes: 'The type and location of each post are recorded from the photo.',
+    newRecord: 'New post', selectType: 'Select type', type: 'Type', capturedAt: 'Captured at', photo: 'Photo',
     locationHint: 'For an accurate location, take the photo with your device’s camera app first, then use the 🖼️ button on the map (choose from album) to pick that photo.',
     saveTo: 'Save to', driveFolder: 'Google Drive CapLog folder', saveDrive: 'Save to Drive',
     selectPeriod: 'Select period', startDate: 'Start date', endDate: 'End date', showPeriod: 'Show this period',
@@ -1410,8 +1410,8 @@ function renderSettingsCategories() {
     const editCategory = () => {
       item.classList.add('editing');
       item.innerHTML = `
-        <input class="category-edit-input" type="text" maxlength="20" value="${category.label}" aria-label="ごみの種類名" />
-        <input class="category-edit-color" type="color" value="${category.color}" aria-label="ごみの種類の色" />
+        <input class="category-edit-input" type="text" maxlength="20" value="${category.label}" aria-label="投稿の種類名" />
+        <input class="category-edit-color" type="color" value="${category.color}" aria-label="投稿の種類の色" />
         <div class="category-edit-actions">
           <button type="button" class="category-edit-save">保存</button>
           <button type="button" class="category-edit-delete">削除</button>
