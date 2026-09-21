@@ -1,5 +1,73 @@
 :root {
+  --page-top: #eaf1fb;
+  --page-bottom: #f6f9fd;
+  --shell-top: #f8fbff;
+  --shell-bottom: #eaf1fb;
+  --surface: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.97);
+  --input-bg: #eef3fa;
+  --panel: #ffffff;
+  --panel-strong: #e6edf8;
+  --panel-accent: rgba(74, 143, 224, 0.16);
+  --panel-accent-line: rgba(47, 98, 179, 0.35);
+  --map-bg: #dbe6f5;
+  --float-bg: rgba(255, 255, 255, 0.96);
+  --float-line: rgba(15, 30, 60, 0.18);
+  --float-hover: #cfe1fa;
+  --float-shadow: 0 8px 16px rgba(15, 30, 60, 0.22);
+  --photo-a: #d3e0f3;
+  --photo-b: #eaf1fb;
+  --link: #2f62b3;
+  --close-bg: rgba(15, 30, 60, 0.08);
+  --text: #0f1b33;
+  --muted: #55647d;
+  --line: rgba(15, 30, 60, 0.12);
+  --green: #4a8fe0;
+  --green-strong: #2f62b3;
+  --green-soft: rgba(74, 143, 224, 0.22);
+  --shadow: 0 12px 28px rgba(15, 30, 60, 0.14);
+  --shadow-sm: 0 6px 16px rgba(15, 30, 60, 0.1);
+  --sheet-shadow: 0 -14px 32px rgba(15, 30, 60, 0.22);
+  --danger: #c4472f;
+  --amber: #9a6500;
+  --gear-light: #d6e8ff;
+  --gear-mid: #4a8fe0;
+  --gear-dark: #1f4f94;
+  --gear-hole-light: #64748b;
+  --gear-hole-dark: #111827;
+  --scheme: light;
+  --panel-radius: 20px;
+  color-scheme: light dark;
+}
+
+/* 配色は、設定で「ライト」「ダーク」を選ぶとその配色に固定（data-theme）。「自動」は端末の設定に従う。
+   ダークの色は2か所に同じものを書く必要があるので、変えるときは両方そろえる */
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --page-top: #0a1220;
+  --page-bottom: #10203a;
+  --shell-top: #0e1a2e;
+  --shell-bottom: #0a1220;
   --surface: #14213a;
+  --surface-glass: rgba(20, 33, 58, 0.97);
+  --input-bg: #0a1220;
+  --panel: rgba(26, 42, 71, 0.96);
+  --panel-strong: #1a2a47;
+  --panel-accent: rgba(47, 98, 179, 0.48);
+  --panel-accent-line: rgba(96, 160, 240, 0.36);
+  --map-bg: #203457;
+  --float-bg: rgba(20, 33, 58, 0.94);
+  --float-line: rgba(200, 220, 255, 0.2);
+  --float-hover: #2f62b3;
+  --float-shadow: 0 10px 20px rgba(0, 0, 0, 0.32);
+  --photo-a: #2a4270;
+  --photo-b: #12203a;
+  --link: #8ec1ff;
+  --close-bg: rgba(210, 225, 250, 0.1);
   --text: #f2f7ff;
   --muted: #9fb3d1;
   --line: rgba(200, 220, 255, 0.14);
@@ -7,9 +75,58 @@
   --green-strong: #2f62b3;
   --green-soft: rgba(74, 143, 224, 0.3);
   --shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+  --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.2);
+  --sheet-shadow: 0 -22px 40px rgba(0, 0, 0, 0.42);
   --danger: #e56d53;
   --amber: #e1a43a;
-  --panel-radius: 20px;
+  --gear-light: #eaf3ff;
+  --gear-mid: #6aa9f0;
+  --gear-dark: #2f62b3;
+  --gear-hole-light: #94a3b8;
+  --gear-hole-dark: #0b1220;
+  --scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --page-top: #0a1220;
+    --page-bottom: #10203a;
+    --shell-top: #0e1a2e;
+    --shell-bottom: #0a1220;
+    --surface: #14213a;
+    --surface-glass: rgba(20, 33, 58, 0.97);
+    --input-bg: #0a1220;
+    --panel: rgba(26, 42, 71, 0.96);
+    --panel-strong: #1a2a47;
+    --panel-accent: rgba(47, 98, 179, 0.48);
+    --panel-accent-line: rgba(96, 160, 240, 0.36);
+    --map-bg: #203457;
+    --float-bg: rgba(20, 33, 58, 0.94);
+    --float-line: rgba(200, 220, 255, 0.2);
+    --float-hover: #2f62b3;
+    --float-shadow: 0 10px 20px rgba(0, 0, 0, 0.32);
+    --photo-a: #2a4270;
+    --photo-b: #12203a;
+    --link: #8ec1ff;
+    --close-bg: rgba(210, 225, 250, 0.1);
+    --text: #f2f7ff;
+    --muted: #9fb3d1;
+    --line: rgba(200, 220, 255, 0.14);
+    --green: #4a8fe0;
+    --green-strong: #2f62b3;
+    --green-soft: rgba(74, 143, 224, 0.3);
+    --shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+    --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.2);
+    --sheet-shadow: 0 -22px 40px rgba(0, 0, 0, 0.42);
+    --danger: #e56d53;
+    --amber: #e1a43a;
+    --gear-light: #eaf3ff;
+    --gear-mid: #6aa9f0;
+    --gear-dark: #2f62b3;
+    --gear-hole-light: #94a3b8;
+    --gear-hole-dark: #0b1220;
+    --scheme: dark;
+  }
 }
 
 * {
@@ -17,14 +134,14 @@
 }
 
 html {
-  background: linear-gradient(180deg, #0a1220 0%, #10203a 100%);
+  background: linear-gradient(180deg, var(--page-top) 0%, var(--page-bottom) 100%);
   overflow-x: hidden;
 }
 
 body {
   margin: 0;
   font-family: "Noto Sans JP", sans-serif;
-  background: #0a1220;
+  background: var(--page-top);
   color: var(--text);
   overflow-x: hidden;
 }
@@ -38,7 +155,7 @@ button {
   min-height: 100vh;
   margin: 0 auto;
   padding: max(16px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
-  background: linear-gradient(180deg, #0e1a2e 0%, #0a1220 100%);
+  background: linear-gradient(180deg, var(--shell-top) 0%, var(--shell-bottom) 100%);
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -72,8 +189,8 @@ button {
 }
 
 .icon-button {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border: none;
   border-radius: 0;
   background: transparent;
@@ -83,10 +200,29 @@ button {
   cursor: pointer;
 }
 
+/* 歯車アイコンの立体感（影）と、押した時の回転 */
+.gear {
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 1.5px rgba(0, 0, 0, 0.4));
+  transition: transform 0.4s ease;
+}
+
+.icon-button:hover .gear,
+.icon-button:focus-visible .gear {
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gear {
+    transition: none;
+  }
+}
+
 .icon-button:hover,
 .icon-button:focus-visible {
   background: transparent;
-  color: #8ec1ff;
+  color: var(--link);
 }
 
 .eyebrow {
@@ -118,7 +254,7 @@ h1 {
   gap: 6px;
   font-size: 0.78rem;
   white-space: nowrap;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-sm);
 }
 
 #googleLoginText {
@@ -134,15 +270,16 @@ h1 {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4285f4, #34a853 40%, #fbbc05 70%, #ea4335);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6);
 }
 
+/* Google 公式の「G」ロゴ。暗い配色でも見えるように白い丸の上に置く */
 .google-mark-inner {
-  color: white;
-  font-weight: 800;
-  font-size: 11px;
-  line-height: 1;
+  width: 100%;
+  height: 100%;
+  padding: 3px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
 }
 
 .summary-bar {
@@ -152,26 +289,26 @@ h1 {
 }
 
 .summary-item {
-  background: rgba(26, 42, 71, 0.96);
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 12px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--shadow-sm);
 }
 
 .summary-button {
   border: 1px solid var(--line);
-  background: rgba(26, 42, 71, 0.96);
-  color: #ffffff;
+  background: var(--panel);
+  color: var(--text);
   cursor: pointer;
 }
 
 .summary-item.accent {
-  background: rgba(47, 98, 179, 0.48);
-  border-color: rgba(96, 160, 240, 0.36);
+  background: var(--panel-accent);
+  border-color: var(--panel-accent-line);
 }
 
 .value {
@@ -196,7 +333,7 @@ h1 {
 #map {
   height: 360px;
   width: 100%;
-  background: #203457;
+  background: var(--map-bg);
 }
 
 .leaflet-control-attribution {
@@ -209,10 +346,10 @@ h1 {
   top: 18px;
   width: 46px;
   height: 46px;
-  border: 1px solid rgba(200, 220, 255, 0.2);
+  border: 1px solid var(--float-line);
   border-radius: 50%;
-  background: rgba(20, 33, 58, 0.94);
-  color: #f2f7ff;
+  background: var(--float-bg);
+  color: var(--text);
   line-height: 1;
   display: flex;
   flex-direction: column;
@@ -220,7 +357,7 @@ h1 {
   justify-content: center;
   gap: 1px;
   padding: 0;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.32);
+  box-shadow: var(--float-shadow);
   z-index: 500;
 }
 
@@ -240,7 +377,7 @@ h1 {
 
 .fab:hover,
 .fab:focus-visible {
-  background: #2f62b3;
+  background: var(--float-hover);
 }
 
 .locate-button {
@@ -249,23 +386,23 @@ h1 {
   bottom: 14px;
   width: 42px;
   height: 42px;
-  border: 1px solid rgba(200, 220, 255, 0.2);
+  border: 1px solid var(--float-line);
   border-radius: 50%;
-  background: rgba(20, 33, 58, 0.94);
-  color: #f2f7ff;
+  background: var(--float-bg);
+  color: var(--text);
   font-size: 1.6rem;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.32);
+  box-shadow: var(--float-shadow);
   z-index: 500;
 }
 
 .locate-button:hover,
 .locate-button:focus-visible {
-  background: #2f62b3;
+  background: var(--float-hover);
 }
 
 .album-button {
@@ -274,23 +411,23 @@ h1 {
   top: 14px;
   width: 42px;
   height: 42px;
-  border: 1px solid rgba(200, 220, 255, 0.2);
+  border: 1px solid var(--float-line);
   border-radius: 50%;
-  background: rgba(20, 33, 58, 0.94);
-  color: #f2f7ff;
+  background: var(--float-bg);
+  color: var(--text);
   font-size: 1.45rem;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.32);
+  box-shadow: var(--float-shadow);
   z-index: 500;
 }
 
 .album-button:hover,
 .album-button:focus-visible {
-  background: #2f62b3;
+  background: var(--float-hover);
 }
 
 .hidden-file-input {
@@ -298,11 +435,11 @@ h1 {
 }
 
 .list-panel {
-  background: rgba(20, 33, 58, 0.96);
+  background: var(--surface-glass);
   border: 1px solid var(--line);
   border-radius: var(--panel-radius);
   padding: 14px 14px 10px;
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-sm);
 }
 
 .section-header {
@@ -324,7 +461,7 @@ h1 {
 .text-button {
   border: none;
   background: transparent;
-  color: #8ec1ff;
+  color: var(--link);
   font-weight: 700;
   padding: 0;
 }
@@ -358,7 +495,7 @@ h1 {
   height: 84px;
   border-radius: 12px;
   object-fit: cover;
-  background: linear-gradient(135deg, #2a4270, #12203a);
+  background: linear-gradient(135deg, var(--photo-a), var(--photo-b));
 }
 
 .photo-preview {
@@ -450,9 +587,9 @@ h1 {
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: rgba(23, 38, 66, 0.98);
+  background: var(--surface-glass);
   color: var(--text);
-  box-shadow: 0 18px 28px rgba(0, 0, 0, 0.36);
+  box-shadow: var(--shadow);
 }
 
 .record-popup {
@@ -499,9 +636,9 @@ h1 {
   bottom: 0;
   transform: translateX(-50%);
   width: min(100%, 460px);
-  background: rgba(20, 33, 58, 0.99);
+  background: var(--surface-glass);
   border-radius: 24px 24px 0 0;
-  box-shadow: 0 -22px 40px rgba(0, 0, 0, 0.42);
+  box-shadow: var(--sheet-shadow);
   border: 1px solid var(--line);
   z-index: 1100;
   overflow: hidden;
@@ -524,10 +661,10 @@ h1 {
 
 .record-modal-card {
   width: min(100%, 460px);
-  background: #14213a;
+  background: var(--surface);
   border-radius: 24px 24px 0 0;
   padding: 16px 16px 30px;
-  box-shadow: 0 -18px 36px rgba(0, 0, 0, 0.42);
+  box-shadow: var(--sheet-shadow);
 }
 
 .settings-card {
@@ -556,10 +693,10 @@ h1 {
   width: auto;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #0a1220;
+  background: var(--input-bg);
   color: var(--text);
   padding: 7px 10px;
-  color-scheme: dark;
+  color-scheme: var(--scheme);
 }
 
 .install-section h4 {
@@ -610,7 +747,7 @@ h1 {
   padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: #0a1220;
+  background: var(--input-bg);
 }
 
 .install-guide-item strong {
@@ -644,7 +781,7 @@ h1 {
   padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: #0a1220;
+  background: var(--input-bg);
 }
 
 .settings-category-item .color-dot {
@@ -661,7 +798,7 @@ h1 {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #14213a;
+  background: var(--surface);
   color: var(--text);
   padding: 8px 10px;
   font: inherit;
@@ -673,7 +810,7 @@ h1 {
   padding: 3px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #0a1220;
+  background: var(--input-bg);
 }
 
 .category-edit-actions {
@@ -686,7 +823,7 @@ h1 {
 .category-edit-actions button {
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #1a2a47;
+  background: var(--panel-strong);
   color: var(--text);
   padding: 6px 10px;
   font-size: 0.72rem;
@@ -695,10 +832,12 @@ h1 {
 
 .category-edit-actions .category-edit-save {
   background: #2f9b62;
+  color: #fff;
 }
 
 .category-edit-actions .category-edit-delete {
   background: #a8443d;
+  color: #fff;
   border-color: rgba(255, 170, 160, 0.28);
 }
 
@@ -735,7 +874,7 @@ h1 {
   padding: 4px;
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: #0a1220;
+  background: var(--input-bg);
 }
 
 .record-modal-header {
@@ -782,9 +921,9 @@ h1 {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: #0a1220;
+  background: var(--input-bg);
   color: var(--text);
-  color-scheme: dark;
+  color-scheme: var(--scheme);
   accent-color: var(--green);
   padding: 12px 14px;
   font-family: inherit;
@@ -798,9 +937,9 @@ h1 {
   padding: 12px;
   border: 1px solid rgba(96, 160, 240, 0.34);
   border-radius: 14px;
-  background: #0a1220;
+  background: var(--input-bg);
   color: var(--text);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24);
+  box-shadow: var(--shadow);
 }
 
 .date-calendar.hidden {
@@ -839,7 +978,7 @@ h1 {
 .calendar-nav {
   width: 30px;
   height: 30px;
-  color: #8ec1ff;
+  color: var(--link);
   font-size: 1.1rem;
 }
 
@@ -896,7 +1035,7 @@ h1 {
   height: 32px;
   border: none;
   border-radius: 50%;
-  background: rgba(210, 225, 250, 0.1);
+  background: var(--close-bg);
   font-size: 1.4rem;
   line-height: 1;
   color: var(--text);
@@ -969,11 +1108,12 @@ h1 {
 }
 
 .secondary-button {
-  background: #1a2a47;
+  background: var(--panel-strong);
 }
 
 .danger-button {
   background: #a8443d;
+  color: #fff;
   border-color: rgba(255, 170, 160, 0.28);
 }
 
@@ -1051,8 +1191,8 @@ h1 {
   }
 
   .icon-button {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
   }
 
   .google-button {
