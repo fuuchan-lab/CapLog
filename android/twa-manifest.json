@@ -1,0 +1,51 @@
+{
+  "packageId": "net.doitmyself.caplog",
+  "host": "caplog.doitmyself.net",
+  "name": "CapLog",
+  "launcherName": "CapLog",
+  "display": "standalone",
+  "themeColor": "#0A1220",
+  "themeColorDark": "#0A1220",
+  "navigationColor": "#0A1220",
+  "navigationColorDark": "#0A1220",
+  "navigationDividerColor": "#0A1220",
+  "navigationDividerColorDark": "#0A1220",
+  "backgroundColor": "#0A1220",
+  "enableNotifications": false,
+  "startUrl": "/",
+  "iconUrl": "https://caplog.doitmyself.net/icons/icon-512.png",
+  "maskableIconUrl": "https://caplog.doitmyself.net/icons/icon-maskable-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "C:/Users/user/.bubblewrap/keys/caplog-upload.keystore",
+    "alias": "caplog"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://caplog.doitmyself.net/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {
+    "locationDelegation": {
+      "enabled": true
+    }
+  },
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://caplog.doitmyself.net/",
+  "minSdkVersion": 21,
+  "orientation": "default",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "protocolHandlers": [],
+  "fileHandlers": [],
+  "launchHandlerClientMode": "",
+  "displayOverride": [],
+  "appVersion": "1.0.0"
+}

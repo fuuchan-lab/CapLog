@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "net.doitmyself.caplog",
+      "sha256_cert_fingerprints": [
+        "3D:64:3D:79:7B:CC:C2:DA:1E:B4:7B:59:B7:53:7B:F3:9C:3F:B6:AE:FE:6E:91:DE:74:24:8F:8C:41:F6:6A:A4"
+      ]
+    }
+  }
+]

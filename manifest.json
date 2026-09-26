@@ -1,6 +1,8 @@
 {
   "name": "CapLog",
   "short_name": "CapLog",
+  "id": ".",
+  "lang": "ja",
   "description": "日常の発見をマップと写真で分類して残す",
   "start_url": ".",
   "scope": ".",
@@ -32,5 +34,9 @@
       "type": "image/png",
       "purpose": "maskable"
     }
+  ],
+  "categories": [
+    "lifestyle",
+    "photo"
   ]
 }

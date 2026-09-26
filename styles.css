@@ -1452,3 +1452,13 @@ h1 {
 .ad-banner ins {
   display: block;
 }
+
+.privacy-link-row {
+  margin: 16px 0 0;
+  text-align: center;
+}
+
+.privacy-link {
+  color: var(--muted);
+  font-size: 0.75rem;
+}

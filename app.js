@@ -216,6 +216,7 @@ const translations = {
     saveTo: '保存先', driveFolder: 'Google Drive の CapLog フォルダー', saveDrive: 'Drive に保存',
     selectPeriod: '期間を選択', startDate: '開始日', endDate: '終了日', showPeriod: 'この期間で表示',
     language: '言語/Language', newType: '新しい種類', color: '色', addType: '種類を追加', exampleType: '例：段ボール',
+    privacyPolicy: 'プライバシーポリシー',
     installTitle: 'デバイスへのインストール方法', installDescription: '下のQRコードをスマートフォンで読み取ってアクセスしてください。',
     android: 'Android', androidGuide: 'Chromeでアクセスし、メニューから「ホーム画面に追加」または「アプリをインストール」を選択してください。',
     ios: 'iPhone / iPad', iosGuide: 'Safariでアクセスし、共有ボタンから「ホーム画面に追加」を選択してください。', qrAlt: 'アクセス先のQRコード',
@@ -262,6 +263,7 @@ const translations = {
     saveTo: 'Save to', driveFolder: 'Google Drive CapLog folder', saveDrive: 'Save to Drive',
     selectPeriod: 'Select period', startDate: 'Start date', endDate: 'End date', showPeriod: 'Show this period',
     language: '言語/Language', newType: 'New type', color: 'Color', addType: 'Add type', exampleType: 'e.g. Cardboard',
+    privacyPolicy: 'Privacy policy',
     installTitle: 'How to install on your device', installDescription: 'Scan the QR code below with your smartphone to open CapLog.',
     android: 'Android', androidGuide: 'Open this page in Chrome, then choose “Add to Home screen” or “Install app” from the menu.',
     ios: 'iPhone / iPad', iosGuide: 'Open this page in Safari, tap the Share button, then choose “Add to Home Screen”.', qrAlt: 'QR code for this app',
@@ -419,6 +421,7 @@ function applyTranslations() {
   document.querySelector('#helpCardSub').textContent = t('helpSubtitle');
   updateDeviceControls();
   document.querySelector('#installSettingsTitle').textContent = t('installTitle');
+  document.querySelector('#privacyPolicyLink').textContent = t('privacyPolicy');
   document.querySelector('#installDescription').textContent = t('installDescription');
   document.querySelector('#installQrCode').alt = t('qrAlt');
   document.querySelector('#androidInstallTitle').textContent = t('android');
@@ -2221,3 +2224,8 @@ window.map = map;
 // possible instead of waiting on the network round trip for Drive first.
 centerMapOnCurrentLocationOnLoad();
 const driveSessionReadyPromise = restoreDriveSession();
+
+// Offline support (also what lets the Android app open without a connection). See sw.js
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch((error) => console.error('[sw]', error));
+}
