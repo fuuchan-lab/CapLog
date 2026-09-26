@@ -8,6 +8,36 @@ const categories = [
   { key: 'item', label: '道具・小物', labelEn: 'Objects & Gadgets', color: '#c86079' },
 ];
 
+const CATEGORIES_KEY = 'caplog-categories';
+
+/** Restores the post types (added / renamed / recoloured / deleted) saved on this device. */
+(function restoreCategories() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(CATEGORIES_KEY));
+    if (!Array.isArray(saved)) return;
+    const valid = saved.filter(
+      (item) => item && typeof item.key === 'string' && item.key !== 'unclassified'
+        && typeof item.label === 'string' && typeof item.color === 'string',
+    );
+    categories.splice(0, categories.length, ...valid.map((item) => ({
+      key: item.key,
+      label: item.label,
+      labelEn: item.labelEn || item.label,
+      color: item.color,
+    })));
+  } catch {
+    // Unreadable or blocked storage: keep the built-in types.
+  }
+})();
+
+function saveCategories() {
+  try {
+    localStorage.setItem(CATEGORIES_KEY, JSON.stringify(categories));
+  } catch {
+    // Storage full or blocked: the change just lasts until the page is reloaded.
+  }
+}
+
 const records = [
   {
     id: 1,
@@ -62,6 +92,11 @@ categoryMap.unclassified = {
   labelEn: 'Unclassified',
   color: '#7a8ca8',
 };
+
+/** The type a record is shown under; an unknown one (deleted, or added on another device) counts as unclassified. */
+function getRecordCategoryKey(record) {
+  return categoryMap[record.category] ? record.category : 'unclassified';
+}
 
 const recordList = document.getElementById('recordList');
 const detailSheet = document.getElementById('detailSheet');
@@ -559,7 +594,7 @@ function hasValidCoordinates(record) {
 
 function getMapVisibleRecords() {
   const recordsWithLocation = getRecordsInRange()
-    .filter((record) => activeCategoryKeys.includes(record.category))
+    .filter((record) => activeCategoryKeys.includes(getRecordCategoryKey(record)))
     .filter(hasValidCoordinates);
 
   if (!window.map || typeof window.map.getBounds !== 'function') {
@@ -1320,6 +1355,7 @@ accountModal.addEventListener('click', (event) => {
 switchAccountButton.addEventListener('click', handleSwitchAccount);
 signOutButton.addEventListener('click', handleSignOut);
 dateRangeButton.addEventListener('click', openDateRangeModal);
+document.querySelector('.list-panel .text-button').addEventListener('click', openDateRangeModal);
 closeDateRangeModal.addEventListener('click', closeDateRangeModalView);
 dateRangeModal.addEventListener('click', (event) => {
   if (event.target === dateRangeModal) {
@@ -1359,7 +1395,7 @@ applyTranslations();
 
 function refreshDetailPlaceText() {
   if (!activeDetailRecord) return;
-  const category = categoryMap[activeDetailRecord.category];
+  const category = categoryMap[getRecordCategoryKey(activeDetailRecord)];
   // Preview the not-yet-saved location fetched via 現在位置を記録 as soon as
   // it's available, rather than only reflecting it after 更新 is pressed.
   const placeText = pendingDetailLocation
@@ -1373,7 +1409,7 @@ function refreshDetailPlaceText() {
 
 function openDetail(record) {
   activeDetailRecord = record;
-  const category = categoryMap[record.category];
+  const category = categoryMap[getRecordCategoryKey(record)];
   detailImage.src = getRecordImageSrc(record);
   detailImage.alt = record.title;
   detailCategoryBadge.textContent = getCategoryLabel(category);
@@ -1384,7 +1420,7 @@ function openDetail(record) {
   refreshDetailPlaceText();
   detailEditForm.classList.add('hidden');
   updateDetailCategoryOptions();
-  detailCategoryInput.value = record.category;
+  detailCategoryInput.value = getRecordCategoryKey(record);
   detailDateTimeInput.value = getDetailDateTimeValue(record);
   detailSheet.classList.remove('hidden');
 }
@@ -1397,7 +1433,7 @@ function getDetailDateTimeValue(record) {
 function startDetailEdit() {
   if (!activeDetailRecord) return;
   updateDetailCategoryOptions();
-  detailCategoryInput.value = activeDetailRecord.category;
+  detailCategoryInput.value = getRecordCategoryKey(activeDetailRecord);
   detailDateTimeInput.value = getDetailDateTimeValue(activeDetailRecord);
   pendingDetailLocation = null;
   detailLocationStatusText.classList.add('hidden');
@@ -1557,6 +1593,7 @@ function renderSettingsCategories() {
         category.label = nextLabel;
         if (!category.labelEn || currentLanguage === 'en') category.labelEn = nextLabel;
         category.color = colorInput.value;
+        saveCategories();
         updateRecordCategoryOptions();
         renderSettingsCategories();
         renderRecords();
@@ -1568,6 +1605,10 @@ function renderSettingsCategories() {
         event.stopPropagation();
         const categoryIndex = categories.findIndex((item) => item.key === category.key);
         categories.splice(categoryIndex, 1);
+        delete categoryMap[category.key];
+        activeCategoryKeys = activeCategoryKeys.filter((key) => key !== category.key);
+        saveCategories();
+        renderRecords();
         updateRecordCategoryOptions();
         renderSettingsCategories();
         renderMarkers(activeCategoryKeys);
@@ -1897,6 +1938,7 @@ function addCategory(event) {
   categories.push(category);
   categoryMap[category.key] = category;
   activeCategoryKeys.push(category.key);
+  saveCategories();
   updateRecordCategoryOptions();
   renderSettingsCategories();
   categoryNameInput.value = '';
@@ -1909,7 +1951,7 @@ function renderRecords() {
   const visibleRecords = getRecordsInRange();
 
   visibleRecords.forEach((item) => {
-    const category = categoryMap[item.category];
+    const category = categoryMap[getRecordCategoryKey(item)];
     const article = document.createElement('article');
     article.className = 'record-item';
     article.innerHTML = `
@@ -1962,7 +2004,7 @@ function renderMarkers(activeCategories = activeCategoryKeys) {
   // view - otherwise a marker that falls outside the map's last position can
   // never pull the view back out to include it again.
   const matchingRecords = getRecordsInRange()
-    .filter((record) => activeCategories.includes(record.category))
+    .filter((record) => activeCategories.includes(getRecordCategoryKey(record)))
     .filter(hasValidCoordinates);
 
   if (matchingRecords.length > 1) {
@@ -1976,7 +2018,7 @@ function renderMarkers(activeCategories = activeCategoryKeys) {
   window.mapMarkers = [];
 
   getMapVisibleRecords()
-    .filter((record) => activeCategories.includes(record.category))
+    .filter((record) => activeCategories.includes(getRecordCategoryKey(record)))
     .forEach((record) => {
       const category = categoryMap[record.category] || categoryMap.unclassified;
       const marker = L.marker([record.lat, record.lng], {
@@ -2164,7 +2206,10 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 map.on('moveend zoomend', renderDateRangeSummary);
 
-setDefaultDateRange();
+// Signed-out visitors see the sample records, so only a returning user (whose Drive records load next) starts on today.
+if (localStorage.getItem(DRIVE_SESSION_KEY)) {
+  setDefaultDateRange();
+}
 renderDateRangeSummary();
 renderRecords();
 renderMarkers();
