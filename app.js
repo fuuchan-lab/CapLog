@@ -220,9 +220,8 @@ const translations = {
   en: {
     appTagline: 'Discovery Photo Logbook', settings: 'Settings', login: 'Log in', connected: 'Google\nConnected',
     recordPeriod: 'Record period', periodCount: 'Records in period & map view', density: 'Post density (posts/km²)',
-    map: 'Discovery map', addRecord: 'Add new record', capture: 'Capture', categories: 'Post types', all: 'Show all',
+    map: 'Discovery map', addRecord: 'Add new record', capture: 'Capture', categories: 'Post types',
     recent: 'Recent records', periodFilter: 'Filter by period', details: 'Record details', close: 'Close',
-    recordTitle: 'Record title', place: 'Place', notes: 'The type and location of each post are recorded from the photo.',
     newRecord: 'New post', selectType: 'Select type', type: 'Type', capturedAt: 'Captured at', photo: 'Photo',
     locationHint: 'For an accurate location, take the photo with your device’s camera app first, then use the 🖼️ button on the map (choose from album) to pick that photo.',
     saveTo: 'Save to', driveFolder: 'Google Drive CapLog folder', saveDrive: 'Save to Drive',
@@ -1043,28 +1042,46 @@ async function hydrateRecordImage(record) {
   }
 }
 
-async function loadRecordsFromDrive() {
-  const query = encodeURIComponent(`'${driveFolderId}' in parents and mimeType='application/json' and trashed=false`);
-  const listResponse = await driveFetch(
-    `https://www.googleapis.com/drive/v3/files?q=${query}&fields=files(id,name)&orderBy=name desc&spaces=drive`,
-  );
-  const listData = await listResponse.json();
-  // 端末の登録ファイル（device-*.json）は記録ではないので、読み込まない
-  const files = (listData.files || []).filter((file) => !window.LogDevices.DEVICE_FILE_RE.test(file.name));
+/** Runs fn for every item, a few at a time, so that hundreds of records do not fire hundreds of requests at once. */
+async function mapInBatches(items, batchSize, fn) {
+  const results = [];
+  for (let start = 0; start < items.length; start += batchSize) {
+    results.push(...(await Promise.all(items.slice(start, start + batchSize).map(fn))));
+  }
+  return results;
+}
 
-  const loadedRecords = await Promise.all(
-    files.map(async (file) => {
-      const contentResponse = await driveFetch(`https://www.googleapis.com/drive/v3/files/${file.id}?alt=media`);
-      const data = await contentResponse.json();
-      return { ...data, dataFileId: file.id };
-    }),
-  );
+/** Lists every record data file in the folder (Drive returns at most 100 per page by default, so follow the pages). */
+async function listRecordFiles() {
+  const query = encodeURIComponent(`'${driveFolderId}' in parents and mimeType='application/json' and trashed=false`);
+  const files = [];
+  let pageToken = '';
+  do {
+    const url =
+      `https://www.googleapis.com/drive/v3/files?q=${query}&fields=nextPageToken,files(id,name)&orderBy=name desc&pageSize=1000&spaces=drive` +
+      (pageToken ? `&pageToken=${encodeURIComponent(pageToken)}` : '');
+    const listData = await (await driveFetch(url)).json();
+    files.push(...(listData.files || []));
+    pageToken = listData.nextPageToken || '';
+  } while (pageToken);
+  // 端末の登録ファイル（device-*.json）は記録ではないので、読み込まない
+  return files.filter((file) => !window.LogDevices.DEVICE_FILE_RE.test(file.name));
+}
+
+async function loadRecordsFromDrive() {
+  const files = await listRecordFiles();
+
+  const loadedRecords = await mapInBatches(files, 20, async (file) => {
+    const contentResponse = await driveFetch(`https://www.googleapis.com/drive/v3/files/${file.id}?alt=media`);
+    const data = await contentResponse.json();
+    return { ...data, dataFileId: file.id };
+  });
 
   loadedRecords.sort((a, b) => parseDate(b.date) - parseDate(a.date));
   records.length = 0;
   records.push(...loadedRecords);
 
-  await Promise.all(records.map(hydrateRecordImage));
+  await mapInBatches(records, 20, hydrateRecordImage);
 
   setDefaultDateRange();
   renderRecords();
@@ -1273,7 +1290,7 @@ async function saveRecordToDrive(event) {
   }
 }
 
-addRecordButton.addEventListener('click', openRecordModal);
+addRecordButton.addEventListener('click', () => openRecordModal());
 albumButton.addEventListener('click', () => openRecordModal('album'));
 locateButton.addEventListener('click', centerOnCurrentLocation);
 closeRecordModal.addEventListener('click', closeRecordModalView);
@@ -1338,7 +1355,6 @@ themeSelect.addEventListener('change', () => {
   window.caplogApplyTheme(preference);
 });
 updateLoginState();
-updateRecordCategoryOptions();
 applyTranslations();
 
 function refreshDetailPlaceText() {
@@ -1966,7 +1982,6 @@ function renderMarkers(activeCategories = activeCategoryKeys) {
       const marker = L.marker([record.lat, record.lng], {
         icon: buildMarkerIcon(category.color, getCategoryLabel(category).slice(0, 1)),
       }).addTo(map);
-      marker.recordId = record.id;
 
       marker.bindPopup(buildPopupContent(record), {
         className: 'record-popup-wrapper',
