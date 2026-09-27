@@ -1445,12 +1445,14 @@ h1 {
 .ad-banner {
   margin-top: auto;
   min-height: 50px;
+  max-height: 100px;
   text-align: center;
   overflow: hidden;
 }
 
 .ad-banner ins {
   display: block;
+  max-height: 100px;
 }
 
 .privacy-link-row {
